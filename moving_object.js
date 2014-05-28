@@ -17,8 +17,9 @@
     this.radius = radius;
     this.color = color;
     this.image = new Image();
-    this.image.src = imageSrc;
-    // this.imageSrc = imageSrc;
+    if (imageSrc != null) {
+     this.image.src = imageSrc; 
+    }
   };
 
   MovingObject.prototype.move = function () {

@@ -13,6 +13,8 @@
   // Asteroids.Game.DIM_Y = document.body.clientHeight;
   
   Game.POINTS = 0;
+  Game.GAME_OVER = new Audio('popeye_game_over.mp3');
+  Game.DESTROY_ASTEROID = new Audio('popeye_asteroid.mp3')
   
   Game.prototype.displayPoints = function () {
     document.getElementById('points').innerHTML = Game.POINTS;
@@ -58,6 +60,7 @@
     for(var i = 0; i < asteroids.length; i++){
       if(asteroids[i].isCollidedWith(this.ship)){
         document.getElementById('death').style.display = 'block';
+        Game.GAME_OVER.play();
         this.stop();
       }
     }
@@ -72,6 +75,7 @@
           var velPoints = Math.round(asteroids[j].vel[0] * -20);
           asteroids.splice(j, 1);
           bullets.splice(i, 1);
+          Game.DESTROY_ASTEROID.play();
           Game.POINTS = Game.POINTS + velPoints;
         }
       }
@@ -91,13 +95,13 @@
     window.addEventListener('keydown', function (event) {
       var key = event.keyCode;
       if (key == 39) {
-        ship.power([2, 0]);
+        ship.power([5, 0]);
       } else if (key == 37) {
-        ship.power([-2, 0]);
+        ship.power([-5, 0]);
       } else if (key == 38) {
-        ship.power([0, -2]);
+        ship.power([0, -5]);
       } else if (key == 40) {
-        ship.power([0, 2]);
+        ship.power([0, 5]);
       } else if (key == 32) {
         ship.fireBullet();
       }

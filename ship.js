@@ -4,11 +4,13 @@
   var Ship = Asteroids.Ship = function(pos){
     Asteroids.MovingObject.call(this, pos, [0, 0], Ship.RADIUS, Ship.COLOR, Ship.IMAGE);
     this.bullets = [];
+    this.canShoot = true;
   };
 
   Ship.RADIUS = 20;
   Ship.COLOR = "white";
   Ship.IMAGE = './ship.png';
+  Ship.LASER_SOUND = new Audio('popeye_laser.mp3');
 
   Ship.inherits(Asteroids.MovingObject);
 
@@ -17,8 +19,16 @@
   };
 
   Ship.prototype.fireBullet = function () {
-    var bulletPos = [this.pos[0] + this.radius, this.pos[1]]
-    this.bullets.push(new Asteroids.Bullet(bulletPos));
+    var ship = this;
+    if (ship.canShoot) {
+      var bulletPos = [ship.pos[0] + ship.radius, ship.pos[1]];
+      ship.bullets.push(new Asteroids.Bullet(bulletPos));
+      Ship.LASER_SOUND.play();
+      ship.canShoot = false;
+      setTimeout( function (event) {   
+        ship.canShoot = true;
+      }, 100);
+    }
   }
 
 })(this);
