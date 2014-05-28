@@ -24,15 +24,19 @@
     right: 0;
   }
   
-  #death {
-    display: none;
+  .alert {
     color: red;
     margin: 30vh auto;
+    padding: 10px;
     border: 10px dashed red;
     width: 30vw;
     font-size: 3em;
   }
-
+  
+  .hidden {
+    display: none;
+  }
+  
   canvas {
     margin: 0;
     position: absolute;
@@ -48,9 +52,15 @@
 
   <div id="points"></div>
   
-  <div id="death">
+  <div class="alert hidden" id="death">
     The ship was hit by an asteroid.<br><br>
-    You and your crew are dead.
+    You and your crew are dead.<br><br>
+    CLICK TO PLAY AGAIN.
+  </div>
+  
+  <div class="alert" id="life">
+    Welcome to Space Cruiser!<br><br>
+    Press ANY KEY to play!
   </div>
 
   <script type="text/javascript">
@@ -65,11 +75,32 @@
     canvas.setAttribute("height", Asteroids.Game.DIM_Y);
     canvas.setAttribute("style", "background-color: black");
 
-    var ctx = canvas.getContext('2d');
-    var game = new Asteroids.Game(ctx);
+    function startGame () {
+      window.removeEventListener('keydown', startGame);
+      document.getElementById('life').style.display = 'none';
+
+      var ctx = canvas.getContext('2d');
+      var game = new Asteroids.Game(ctx);    
+      game.start();      
+    };
     
-    game.start();
+    function restartGame () {
+      Asteroids.Game.GAME_OVER.pause();
+      Asteroids.Game.GAME_OVER.currentTime = 0;
+      
+      document.getElementById('death').style.display = 'none';
+      
+      var ctx = canvas.getContext('2d');
+      var game = new Asteroids.Game(ctx);
+      game.start();      
+    };
     
+    window.addEventListener('keydown', startGame);
+    
+    var restart = document.getElementById('death');
+    
+    restart.addEventListener('click', restartGame);
+            
   </script>
   
 </body>

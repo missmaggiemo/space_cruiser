@@ -1,6 +1,12 @@
 # TODO
 
-Asteroids have sound effects.
+Asteroids are pixelated.
+
+Everything has a sound effect.
+
+Nice way to restart the game.
+
+Random alien that shoots and could kill you.
 
 ### Alien
 

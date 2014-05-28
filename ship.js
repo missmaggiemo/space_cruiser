@@ -11,11 +11,13 @@
   Ship.COLOR = "white";
   Ship.IMAGE = './ship.png';
   Ship.LASER_SOUND = new Audio('popeye_laser.mp3');
+  Ship.POWER_SOUND = new Audio('popeye_ship_power.mp3')
 
   Ship.inherits(Asteroids.MovingObject);
 
   Ship.prototype.power = function(impulse){
     this.vel = impulse;
+    Ship.POWER_SOUND.play();
   };
 
   Ship.prototype.fireBullet = function () {

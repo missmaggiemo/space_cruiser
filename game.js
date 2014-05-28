@@ -7,6 +7,8 @@
     this.asteroids = [];
     this.ship = new Asteroids.Ship([Game.DIM_X / 5, Game.DIM_Y / 2]);
   };
+
+
   
   // in index.html
   // Asteroids.Game.DIM_X = document.body.clientWidth;
@@ -15,6 +17,8 @@
   Game.POINTS = 0;
   Game.GAME_OVER = new Audio('popeye_game_over.mp3');
   Game.DESTROY_ASTEROID = new Audio('popeye_asteroid.mp3')
+
+  Game.SHIP_ENGINE = new Audio('popeye_ship_engine.mp3'); 
   
   Game.prototype.displayPoints = function () {
     document.getElementById('points').innerHTML = Game.POINTS;
@@ -110,6 +114,7 @@
 
   Game.prototype.stop = function(){
     clearInterval(this.timerId);
+    Game.SHIP_ENGINE.pause();
   };
 
   Game.prototype.draw = function(){
@@ -151,6 +156,13 @@
     var game = this;
     this.bindKeyHandlers();
     game.addAsteroids(10);
+    
+    Game.SHIP_ENGINE.addEventListener('ended', function() {
+        this.play();
+    }, false);
+    
+    Game.SHIP_ENGINE.play();
+    
     this.timerId = setInterval(function(){
       game.step();
     }, game.FPS);
