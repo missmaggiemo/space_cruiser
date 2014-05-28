@@ -10,8 +10,9 @@
   Asteroids.Asteroid =
   function (pos, vel) {
     COLOR = 'green';
-    RADIUS = 10;
-    Asteroids.MovingObject.call(this, pos, vel, RADIUS, COLOR);
+    RADIUS = 12;
+    IMAGE = './asteroid.png';
+    Asteroids.MovingObject.call(this, pos, vel, RADIUS, COLOR, IMAGE);
   };
 
   Asteroid.inherits(Asteroids.MovingObject);

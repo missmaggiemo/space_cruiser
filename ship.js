@@ -2,12 +2,13 @@
   var Asteroids = root.Asteroids = (root.Asteroids || {});
 
   var Ship = Asteroids.Ship = function(pos){
-    Asteroids.MovingObject.call(this, pos, [0, 0], Ship.RADIUS, Ship.COLOR);
+    Asteroids.MovingObject.call(this, pos, [0, 0], Ship.RADIUS, Ship.COLOR, Ship.IMAGE);
     this.bullets = [];
   };
 
-  Ship.RADIUS = 15;
+  Ship.RADIUS = 20;
   Ship.COLOR = "white";
+  Ship.IMAGE = './ship.png';
 
   Ship.inherits(Asteroids.MovingObject);
 

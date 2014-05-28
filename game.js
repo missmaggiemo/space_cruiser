@@ -7,9 +7,16 @@
     this.asteroids = [];
     this.ship = new Asteroids.Ship([Game.DIM_X / 5, Game.DIM_Y / 2]);
   };
-
-  Game.DIM_X = 1000;
-  Game.DIM_Y = 800;
+  
+  // in index.html
+  // Asteroids.Game.DIM_X = document.body.clientWidth;
+  // Asteroids.Game.DIM_Y = document.body.clientHeight;
+  
+  Game.POINTS = 0;
+  
+  Game.prototype.displayPoints = function () {
+    document.getElementById('points').innerHTML = Game.POINTS;
+  };
 
   Game.prototype.addAsteroids = function(nAsteroids){
     for(var i = 0; i < nAsteroids; i++){
@@ -44,14 +51,13 @@
       this.ship.pos[0] = Game.DIM_X / 5;
       this.ship.pos[1] = Game.DIM_Y / 2;
     }
-     console.log(shipX, shipY, this.ship.pos);
   };
 
   Game.prototype.checkCollisions = function () {
     var asteroids = this.asteroids;
     for(var i = 0; i < asteroids.length; i++){
       if(asteroids[i].isCollidedWith(this.ship)){
-        alert("Oh my gosh! You killed the ship!");
+        document.getElementById('death').style.display = 'block';
         this.stop();
       }
     }
@@ -62,11 +68,11 @@
     var asteroids = this.asteroids;
     for(var i = 0; i < bullets.length; i++){
       for(var j = 0; j < asteroids.length; j++){
-        console.log("I'm in the loop!");
         if (bullets[i].hitAsteroids(asteroids[j])){
-          console.log("I evaluated!");
+          var velPoints = Math.round(asteroids[j].vel[0] * -20);
           asteroids.splice(j, 1);
           bullets.splice(i, 1);
+          Game.POINTS = Game.POINTS + velPoints;
         }
       }
     }
@@ -79,23 +85,23 @@
   }
 
   Game.prototype.bindKeyHandlers = function(){
+   
     var ship = this.ship;
-    key('down', function(){
-      ship.power([0, 2]);
+
+    window.addEventListener('keydown', function (event) {
+      var key = event.keyCode;
+      if (key == 39) {
+        ship.power([2, 0]);
+      } else if (key == 37) {
+        ship.power([-2, 0]);
+      } else if (key == 38) {
+        ship.power([0, -2]);
+      } else if (key == 40) {
+        ship.power([0, 2]);
+      } else if (key == 32) {
+        ship.fireBullet();
+      }
     });
-    key('up', function(){
-      ship.power([0, -2]);
-    });
-    key('left', function(){
-      ship.power([-2, 0]);
-    });
-    key('right', function(){
-      ship.power([2, 0]);
-    });
-    key('space', function(){
-      console.log('space was pressed');
-      ship.fireBullet();
-    })
   }
 
   Game.prototype.stop = function(){
@@ -134,6 +140,7 @@
     this.removeHitAsteroids();
     this.draw();
     this.checkCollisions();
+    this.displayPoints();
   };
 
   Game.prototype.start = function(){

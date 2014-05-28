@@ -6,13 +6,60 @@
   <script src="./game.js"></script>
   <script src="./ship.js"></script>
   <script src="./bullet.js"></script>
+  <link href='http://fonts.googleapis.com/css?family=Share+Tech+Mono' rel='stylesheet' type='text/css'>
+  <style type="text/css" media="screen">
+
+  body {
+    font-family: 'Share Tech Mono';
+    text-align: center;
+    overflow: hidden;
+  }
+
+  #points {
+    color: red;
+    font-size: 3em;
+    position: absolute;
+    padding: 20px;
+    bottom: 0;
+    right: 0;
+  }
+  
+  #death {
+    display: none;
+    color: red;
+    margin: 30vh auto;
+    border: 10px dashed red;
+    width: 30vw;
+    font-size: 3em;
+  }
+
+  canvas {
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  </style>
 </head>
 
 <body>
 
-  <script>
+  <div id="points"></div>
+  
+  <div id="death">
+    The ship was hit by an asteroid.<br><br>
+    You and your crew are dead.
+  </div>
+
+  <script type="text/javascript">
+    
     var canvas = document.createElement("canvas");
     document.body.appendChild(canvas);
+    
+    Asteroids.Game.DIM_X = document.body.clientWidth;
+    Asteroids.Game.DIM_Y = document.body.clientHeight;
 
     canvas.setAttribute("width", Asteroids.Game.DIM_X);
     canvas.setAttribute("height", Asteroids.Game.DIM_Y);
@@ -20,7 +67,10 @@
 
     var ctx = canvas.getContext('2d');
     var game = new Asteroids.Game(ctx);
+    
     game.start();
+    
   </script>
+  
 </body>
 </html>

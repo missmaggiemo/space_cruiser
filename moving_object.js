@@ -9,13 +9,16 @@
 
   var MovingObject =
   Asteroids.MovingObject =
-  function (pos, vel, radius, color) {
+  function (pos, vel, radius, color, imageSrc) {
     this.pos = pos;
     // [x, y] center
     this.vel = vel;
     // [dx, dy]
     this.radius = radius;
     this.color = color;
+    this.image = new Image();
+    this.image.src = imageSrc;
+    // this.imageSrc = imageSrc;
   };
 
   MovingObject.prototype.move = function () {
@@ -25,18 +28,22 @@
   };
 
   MovingObject.prototype.draw = function(ctx){
-    ctx.fillStyle = this.color;
-    ctx.beginPath();
-    ctx.arc(
-      this.pos[0],
-      this.pos[1],
-      this.radius,
-      0,
-      2 * Math.PI,
-      true
-    );
-
-    ctx.fill();
+    var image = this.image;
+    var pos = this.pos;
+    var radius = this.radius;
+    ctx.drawImage(image, pos[0] - radius, pos[1] - radius);
+    // ctx.fillStyle = this.color;
+    // ctx.beginPath();
+    // ctx.arc(
+    //   this.pos[0],
+    //   this.pos[1],
+    //   this.radius,
+    //   0,
+    //   2 * Math.PI,
+    //   true
+    // );
+    // 
+    // ctx.fill();
   };
 
   MovingObject.prototype.isCollidedWith = function(otherObj){
