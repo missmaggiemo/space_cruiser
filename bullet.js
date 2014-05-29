@@ -1,12 +1,12 @@
 (function(root){
   var Asteroids = root.Asteroids = (root.Asteroids || {});
 
-  var Bullet = Asteroids.Bullet = function (pos, vel) {
+  var Bullet = Asteroids.Bullet = function (pos, vel, color) {
     var vel = vel || [10, 0];
-    Asteroids.MovingObject.call(this, pos, vel, Bullet.LENGTH, Bullet.COLOR, null);
+    var color = color || 'red';
+    Asteroids.MovingObject.call(this, pos, vel, Bullet.LENGTH, color, null);
   };
 
-  Bullet.COLOR = 'red';
   Bullet.LENGTH = 10;
   Bullet.WIDTH = 4;
 
@@ -17,7 +17,7 @@
     ctx.fillRect(this.pos[0], this.pos[1], Bullet.LENGTH, Bullet.WIDTH);
   }
 
-  Bullet.prototype.hitAsteroids = function(asteroid){
+  Bullet.prototype.hitObjects = function(asteroid){
 
     var minDist = asteroid.radius;
     var x1 = this.pos[0] + Bullet.LENGTH;

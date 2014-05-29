@@ -27,7 +27,7 @@
   Alien.prototype.fireBullet = function () {
     var alien = this;
     var bulletPos = [alien.pos[0], alien.pos[1]];
-    alien.bullets.push(new Asteroids.Bullet(bulletPos, [-10, 0]));
+    alien.bullets.push(new Asteroids.Bullet(bulletPos, [-10, 0], 'green'));
     // debugger
     Alien.LASER_SOUND.play();
   };

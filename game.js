@@ -51,13 +51,13 @@
   Game.prototype.removeOffBoardAliens = function () {
     var game = this;
     for (var i = 9; i < game.aliens; i ++) {
-      var alien = aliens[i];
+      var alien = game.aliens[i];
       var alienX = this.alien.pos[0];
       var alienY = this.alien.pos[1];
 
       if (alienX < 0 || alienX > Game.DIM_X || alienY < 0 || alienY > Game.DIM_Y) {
         game.aliens.splice(i, 1);
-      }      
+      }
     }
   };
 
@@ -101,17 +101,22 @@
     }
   };
 
-  Game.prototype.removeHitAsteroids = function(){
-    var bullets = this.ship.bullets;
+  Game.prototype.removeHitObjects = function(){
+    var bullets = this.calculateBullets();
     var asteroids = this.asteroids;
     for(var i = 0; i < bullets.length; i++){
       for(var j = 0; j < asteroids.length; j++){
-        if (bullets[i].hitAsteroids(asteroids[j])){
+        if (bullets[i].hitObjects(asteroids[j])){
           var velPoints = Math.round(asteroids[j].vel[0] * -20);
           asteroids.splice(j, 1);
           bullets.splice(i, 1);
           Game.DESTROY_ASTEROID.play();
           Game.POINTS = Game.POINTS + velPoints;
+        }
+        if (bullets[i].hitObjects(this.ship)) {
+          document.getElementById('death').style.display = 'block';
+          Game.GAME_OVER.play();
+          this.stop();
         }
       }
     }
@@ -194,7 +199,7 @@
     this.move();
     this.outOfBounds();
     this.addAsteroids(Math.floor(Math.random() * 1.2));
-    this.removeHitAsteroids();
+    this.removeHitObjects();
     this.draw();
     this.checkCollisions();
     this.displayPoints();
@@ -211,7 +216,7 @@
     
     Game.SHIP_ENGINE.play();
     
-    setTimeout(game.addAlien.bind(game), Math.floor(Math.random + 3) * 5000);
+    setTimeout(game.addAlien.bind(game), Math.floor(Math.random + 5000) * 5);
     
     this.timerId = setInterval(function(){
       game.step();
