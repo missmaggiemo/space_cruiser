@@ -14,8 +14,8 @@
   Alien.RADIUS = 20;
   Alien.COLOR = "red";
   Alien.IMAGE = './alien.png';
-  Alien.LASER_SOUND = new Audio('popeye_laser.mp3');
-  Alien.POWER_SOUND = new Audio('popeye_ship_power.mp3')
+  Alien.LASER_SOUND = new Audio('popeye_alien_laser.mp3');
+  Alien.POWER_SOUND = new Audio('popeye_alien_power.mp3')
 
   Alien.inherits(Asteroids.MovingObject);
 
