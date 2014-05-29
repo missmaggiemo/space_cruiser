@@ -23,6 +23,9 @@
   };
 
   MovingObject.prototype.move = function () {
+    if (this.vel == undefined) {
+      console.log(this);
+    }
     var pos = this.pos;
     var vel = this.vel;
     this.pos = [pos[0] + vel[0], pos[1] + vel[1]];
@@ -33,18 +36,6 @@
     var pos = this.pos;
     var radius = this.radius;
     ctx.drawImage(image, pos[0] - radius, pos[1] - radius);
-    // ctx.fillStyle = this.color;
-    // ctx.beginPath();
-    // ctx.arc(
-    //   this.pos[0],
-    //   this.pos[1],
-    //   this.radius,
-    //   0,
-    //   2 * Math.PI,
-    //   true
-    // );
-    // 
-    // ctx.fill();
   };
 
   MovingObject.prototype.isCollidedWith = function(otherObj){

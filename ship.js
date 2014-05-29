@@ -23,7 +23,7 @@
   Ship.prototype.fireBullet = function () {
     var ship = this;
     if (ship.canShoot) {
-      var bulletPos = [ship.pos[0] + ship.radius, ship.pos[1]];
+      var bulletPos = [ship.pos[0] + ship.radius, ship.pos[1], [10,0]];
       ship.bullets.push(new Asteroids.Bullet(bulletPos));
       Ship.LASER_SOUND.play();
       ship.canShoot = false;

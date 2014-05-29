@@ -1,11 +1,11 @@
 (function(root){
   var Asteroids = root.Asteroids = (root.Asteroids || {});
 
-  var Bullet = Asteroids.Bullet = function (pos) {
-    Asteroids.MovingObject.call(this, pos, Bullet.VELOCITY, Bullet.LENGTH, Bullet.COLOR, null);
+  var Bullet = Asteroids.Bullet = function (pos, vel) {
+    var vel = vel || [10, 0];
+    Asteroids.MovingObject.call(this, pos, vel, Bullet.LENGTH, Bullet.COLOR, null);
   };
 
-  Bullet.VELOCITY = [10,0];
   Bullet.COLOR = 'red';
   Bullet.LENGTH = 10;
   Bullet.WIDTH = 4;
