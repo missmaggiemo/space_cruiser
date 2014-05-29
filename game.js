@@ -50,12 +50,13 @@
   
   Game.prototype.removeOffBoardAliens = function () {
     var game = this;
-    for (var i = 9; i < game.aliens; i ++) {
+    for (var i = 0; i < game.aliens.length; i ++) {
       var alien = game.aliens[i];
-      var alienX = this.alien.pos[0];
-      var alienY = this.alien.pos[1];
+      var alienX = alien.pos[0];
+      var alienY = alien.pos[1];
 
       if (alienX < 0 || alienX > Game.DIM_X || alienY < 0 || alienY > Game.DIM_Y) {
+        game.aliens[i].stop();
         game.aliens.splice(i, 1);
       }
     }
